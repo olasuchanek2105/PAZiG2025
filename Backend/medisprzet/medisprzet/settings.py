@@ -32,24 +32,33 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
+    'django.contrib.auth',            # ✅ musi być
+    'django.contrib.contenttypes',    # ✅ musi być
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
+    # nowoczesny backend (DRF + dj-rest-auth)
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+    # allauth i social
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
-    
-    
+
+    # twoje aplikacje
     'users',
     'listings',
     'purchases',
-    'payments'
+    'payments',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,6 +152,16 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend", 
 ]
 
+
+#konfiguracja Django REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
+
+
 SITE_ID = 1
 
 ACCOUNT_LOGIN_METHODS = {"username"}
@@ -153,3 +172,5 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 
 LOGIN_REDIRECT_URL = "/" #przekierowanie po zalogowaniu - na poczatek pewnie do strony glownej
 LOGOUT_REDIRECT_URL = "/" #po wylogowaniu
+
+

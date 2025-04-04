@@ -1,8 +1,9 @@
-from django.urls import path, include
-from . import views
+from django.urls import path
+from .views import add_listing_api
 
 urlpatterns = [
-    path('add/', views.add_listings, name='add_listings'),
-    # path('<int:id>/', views.listing.detail, name='listing_detail'),
-    # path('', views.listing_list, name='listing_list'),
+    path('add/', add_listing_api, name='add_listing_api'),
 ]
+
+
+#name = cos To nazwa tej ścieżki URL, której możesz używać w szablonach lub funkcji redirect().

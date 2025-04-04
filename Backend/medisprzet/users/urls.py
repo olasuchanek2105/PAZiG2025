@@ -1,8 +1,8 @@
 from django.urls import path, include
 
 urlpatterns = [
-    path('accounts/', include('allauth.urls')) #przekierowuje sciezki /accounts/ do allauth
-    #include allauth automatycznie dodaje gotowe widoki rejestracji itp
+    path('auth/', include('dj_rest_auth.urls')),                    # login, logout, password reset
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),  # rejestracja
 ]
 
 #endpointy do uzycia:

@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.http import HttpRequest, HttpResponse
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('users.urls')), #dolaczamy sciezki z users
-    path('listings/', include('listings.urls')),
+    path('api/users/', include('users.urls')),      #REST API użytkowników
+    path('api/listings/', include('listings.urls')),  # API ogłoszeń
 ]
+
+
+#teraz kazda sciezka zaczyna sie od api/
+#np. api/listings/add
