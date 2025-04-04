@@ -22,4 +22,5 @@ from django.http import HttpRequest, HttpResponse
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')), #dolaczamy sciezki z users
+    path('listings/', include('listings.urls')),
 ]

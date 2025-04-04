@@ -1,0 +1,7 @@
+<!-- listings/templates/listings/add_listing.html -->
+<h2>Dodaj ogłoszenie</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Dodaj</button>
+</form>
