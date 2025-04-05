@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', include('users.urls')),      #REST API użytkowników
     path('api/listings/', include('listings.urls')),  # API ogłoszeń
+    path('api/', include('users.urls')), 
 ]
 
 

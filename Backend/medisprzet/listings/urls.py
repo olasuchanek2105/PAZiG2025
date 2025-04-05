@@ -3,6 +3,7 @@ from .views import add_listing_api
 
 urlpatterns = [
     path('add/', add_listing_api, name='add_listing_api'),
+    
 ]
 
 

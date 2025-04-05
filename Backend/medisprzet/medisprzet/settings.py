@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xb(px&and%l0%332#qx#+9q51u30vn0#*_d8@5gc(6*5(y=yf8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.127', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    'corsheaders',
 
     # allauth i social
     'allauth',
@@ -60,6 +61,12 @@ INSTALLED_APPS = [
 
 
 
+CORS_ALLOWED_ORIGINS = [
+    "http://192.168.0.127:3000",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000", #TUTAJ IP DLA KTORYCH DJANGO POZWALA NA DOSTEP DO DANYCH 
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'medisprzet.urls'
@@ -158,7 +166,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny', #to na czas testow pozwala kazdemu na dostep do danych
+        # potem do zmiany na 'rest_framework.authentication.TokenAuthentication',
+    ],
 }
+
 
 
 
