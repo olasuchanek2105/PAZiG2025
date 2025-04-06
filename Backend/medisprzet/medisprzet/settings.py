@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
 
-    # twoje aplikacje
+    # aplikacje
     'users',
     'listings',
     'purchases',

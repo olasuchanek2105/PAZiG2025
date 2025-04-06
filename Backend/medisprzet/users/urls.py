@@ -4,7 +4,7 @@ from .views import UserViewSet
 
 
 router = DefaultRouter()
-router.register(r'', UserViewSet)  # 👈 Zamiast 'users'
+router.register(r'', UserViewSet)  
 
 
 urlpatterns = [
