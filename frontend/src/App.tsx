@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Register from './auth/Register';
 import Login from "./auth/Login";
+import Orders from "./auth/Orders"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Link to="/" style={styles.link}>Strona główna</Link>
           <Link to="/register" style={styles.link}>Rejestracja</Link>
           <Link to="/login" style={styles.link}>Logowanie</Link>
+          <Link to="/listings" style={styles.link}>Ogłoszenia</Link>
         </nav>
 
         {/* Ścieżki (routing) */}
@@ -20,6 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/listings" element={<Orders />} />
         </Routes>
       </div>
     </Router>
