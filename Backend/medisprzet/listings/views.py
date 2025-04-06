@@ -20,6 +20,8 @@
 #     serializer_class = OrderSerializer
 
 # listings/views.py
+
+#ja przejrze ten kod u gory i zrobie z tym porzadek
 from rest_framework import viewsets
 from .models import Orders
 from .serializers import OrderSerializer
