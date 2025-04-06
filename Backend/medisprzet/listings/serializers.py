@@ -3,4 +3,4 @@ from .models import Orders
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
-        fields = '__all__'
+        fields = '__all__' #wszystkie pola z tabeli orders
