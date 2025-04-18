@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"; 
+import { useNavigate } from "react-router-dom";
 // Importujemy React oraz hooki: useEffect (do efektu po załadowaniu komponentu) i useState (do przechowywania danych)
 
 type User = {
@@ -11,8 +12,16 @@ const Account: React.FC = () => {
   // Tworzymy stan dla danych użytkownika (user) i komunikatu (message)
   const [user, setUser] = useState<User | null>(null);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/login");
+  }
+  
   useEffect(() => {
+
+    
     // Po załadowaniu komponentu wykonujemy zapytanie do API
 
     const token = localStorage.getItem("authToken"); 
@@ -32,6 +41,9 @@ const Account: React.FC = () => {
         "Authorization": `Token ${token}`, 
         // Token autoryzacji musi być podany w nagłówku – tak Django sprawdza, kim jesteś
       },
+
+    
+      
     })
       .then((res) => res.json())  // Odpowiedź z backendu konwertujemy do JSON
       .then((data) => setUser(data)) // Jeśli wszystko OK, zapisujemy dane użytkownika do stanu
@@ -55,8 +67,14 @@ const Account: React.FC = () => {
       <h2>Twoje konto</h2>
       <p><strong>Nazwa użytkownika:</strong> {user.username}</p>
       <p><strong>Email:</strong> {user.email}</p>
+
+      <button onClick={handleLogout} style={styles.button}>
+        Wyloguj się
+      </button>
     </div>
   );
+
+  
 };
 
 // Proste style (CSS-in-JS) dla kontenera
@@ -69,6 +87,16 @@ const styles = {
     marginRight: "auto",
     backgroundColor: "#f4f8ff",
     borderRadius: "20px",
+  },
+  button: {
+    marginTop: "20px",
+    padding: "10px",
+    backgroundColor: "#d9534f",
+    border: "none",
+    borderRadius: "10px",
+    color: "white",
+    cursor: "pointer",
+    fontWeight: "bold" as const,
   }
 };
 
