@@ -4,6 +4,8 @@ import './App.css';
 import Register from './auth/Register';
 import Login from "./auth/Login";
 import Orders from "./auth/Orders"
+import Account from './auth/Account';
+
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Link to="/register" style={styles.link}>Rejestracja</Link>
           <Link to="/login" style={styles.link}>Logowanie</Link>
           <Link to="/listings" style={styles.link}>Ogłoszenia</Link>
+          <Link to="/account" style={styles.link}>Moje konto</Link>
+
         </nav>
 
         {/* Ścieżki (routing) */}
@@ -23,6 +27,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/listings" element={<Orders />} />
+          <Route path="/account" element={<Account />} />
+
         </Routes>
       </div>
     </Router>
