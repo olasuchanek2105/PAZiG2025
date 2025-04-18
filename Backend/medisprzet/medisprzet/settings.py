@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xb(px&and%l0%332#qx#+9q51u30vn0#*_d8@5gc(6*5(y=yf8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.127', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.127', 'localhost', '127.0.0.1', '192.168.1.14']
 
 
 # Application definition
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
 
-    # aplikacje
+    # twoje aplikacje
     'users',
     'listings',
     'purchases',
@@ -63,8 +63,9 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.0.127:3000",
-    "http://localhost:3000",
+    "http://localhost:3000", #frontend
     "http://127.0.0.1:3000", #TUTAJ IP DLA KTORYCH DJANGO POZWALA NA DOSTEP DO DANYCH 
+    "http://192.168.1.14:3000" #laptop oliwia
 ]
 
 MIDDLEWARE = [
