@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react"; // Importujemy React i hook useState
+import { Link } from "react-router-dom";
+
+
+
 
 // Deklaracja komponentu Register jako funkcjonalny komponent Reacta
 const Orders: React.FC = () => {
@@ -10,7 +14,7 @@ const Orders: React.FC = () => {
     useEffect(() => {
       const fetchListings = async () => {
         try {
-          const response = await fetch("http://127.0.0.1:8000/api/listings/add/", {
+          const response = await fetch("http://127.0.0.1:8000/api/listings/", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -39,7 +43,12 @@ const Orders: React.FC = () => {
         <ul>
           {listings.map((listing: any) => (
             <li key={listing.order_id}>
-              <h3>{listing.user_id}</h3>
+              <h3>
+                 <Link to={`/listings/${listing.order_id}`}>
+                 {listing.title}
+                 </Link>
+              </h3>
+
               <p>Kategoria: {listing.category_id}</p>
               <p>Tytuł: {listing.title}</p>
               <p>Opis: {listing.description}</p>

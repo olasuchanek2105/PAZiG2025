@@ -13,26 +13,44 @@ type Order = {
 
 const OrderDetails: React.FC = () => {
     const{id} = useParams() 
-
-
-
-
-
     const [order, setOrder] = useState<Order | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    useEffect(()=> {
-        fetch("http://localhost:8000/api/listings/{id}", {
+    useEffect(() => {
+      fetch(`http://localhost:8000/api/listings/${id}/`, {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setOrder(data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setError("Błąd podczas pobierania danych ogłoszenia.");
+          setLoading(false);
+        });
+    }, []);
 
-            method: "GET",
-        
+    if (loading) return <p>Ładowanie...</p>;
+if (error) return <p>{error}</p>;
+if (!order) return <p>Nie znaleziono ogłoszenia.</p>;
 
-    })
-    .then((res) => res.json())  // Odpowiedź z backendu konwertujemy do JSON
-    .then((data) => setOrder(data)) // Jeśli wszystko OK, zapisujemy dane użytkownika do stanu
-    .catch(() => setError("Błąd podczas pobierania danych użytkownika."));
-    }, [])}
+return (
+  <div style={{ padding: "20px" }}>
+    <h2>{order.title}</h2>
+    <p>{order.description}</p>
+    <p><strong>Cena:</strong> {order.price} zł</p>
+    <p><strong>Adres:</strong> {order.address}</p>
+    <p><strong>Dodano:</strong> {new Date(order.created_at).toLocaleDateString()}</p>
+  </div>
+);
+
+    
+
+  }
+
+  export default OrderDetails;
 
       
 

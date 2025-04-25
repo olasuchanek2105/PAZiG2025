@@ -5,6 +5,7 @@ import Register from './auth/Register';
 import Login from "./auth/Login";
 import Orders from "./listings/Orders"
 import Account from './auth/Account';
+import OrderDetails from './listings/OrderDetails';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
       <div style={styles.dropdownMenu}>
         <Link to="/login" style={styles.dropdownItem}>Logowanie</Link>
         <Link to="/register" style={styles.dropdownItem}>Rejestracja</Link>
+        
       </div>
     )}
   </div>
