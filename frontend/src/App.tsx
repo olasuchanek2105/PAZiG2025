@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Register from './auth/Register';
 import Login from "./auth/Login";
-import Orders from "./auth/Orders"
+import Orders from "./listings/Orders"
 import Account from './auth/Account';
 
 
@@ -48,8 +48,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/listings" element={<Orders />} />
+          <Route path="/listings/:id" element={<OrderDetails />} />
           <Route path="/account" element={<Account />} />
-
+          
         </Routes>
       </div>
     </Router>
