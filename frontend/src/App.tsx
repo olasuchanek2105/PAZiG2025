@@ -6,6 +6,7 @@ import Login from "./auth/Login";
 import Orders from "./listings/Orders";
 import Account from './auth/Account';
 import OrderDetails from './listings/OrderDetails';
+import CreateListing from "./listings/CreateListing";
 
 function App() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -33,6 +34,11 @@ function App() {
           />
           <span>Ogłoszenia</span>
         </Link>
+
+        <Link to="/create" style={styles.buttonAddListing}>
+          Wystaw ogłoszenie
+        </Link>
+
 
 
           <div
@@ -70,6 +76,7 @@ function App() {
           <Route path="/listings" element={<Orders />} />
           <Route path="/listings/:id" element={<OrderDetails />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/create" element={<CreateListing />} />
         </Routes>
       </div>
     </Router>
@@ -151,6 +158,16 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: "21px",
     height: "21px",
     objectFit: "cover",
+  },
+  buttonAddListing: {
+    backgroundColor: "#1d4a94",
+    color: "white",
+    padding: "8px 16px",
+    borderRadius: "20px",
+    textDecoration: "none",
+    fontSize: "14px",
+    fontWeight: "bold",
+    transition: "background-color 0.3s",
   },
   
 
