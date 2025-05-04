@@ -38,32 +38,39 @@ const Orders: React.FC = () => {
 
     return (
       <div style={{ padding: "2rem" }}>
-        <h2>Ogłoszenia</h2>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <ul>
-          {listings.map((listing: any) => (
-            <li key={listing.order_id}>
-              <h3>
-                 <Link to={`/listings/${listing.order_id}`}>
-                 {listing.title}
-                 </Link>
-              </h3>
+        <h2 style={styles.header}>
+        Ogłoszenia
+        </h2>
 
-              <p>Kategoria: {listing.category_id}</p>
-              <p>Tytuł: {listing.title}</p>
-              <p>Opis: {listing.description}</p>
-              <p>Cena: {listing.price} zł</p>
-              <p>Adres: {listing.address}</p>
-              <p>Status: {listing.status}</p>
-            </li>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        
+        <div style={styles.grid}>
+          {listings.map((listing: any) => (
+            <div key={listing.order_id} style={styles.card}>
+              <h3>
+                <Link to={`/listings/${listing.order_id}`} style={styles.link}>
+                  {listing.title}
+                </Link>
+              </h3>
+    
+              <p style={styles.desc}>
+                {listing.description.length > 80
+                  ? listing.description.slice(0, 80) + "..."
+                  : listing.description}
+              </p>
+              <p style={styles.price}>{listing.price} zł</p>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     );
   };
     
     // Stylizacja komponentu (prosty system stylów jako obiekt JS)
     const styles = {
+      header: {
+        color: "white",
+      },      
       page: {
         backgroundColor: "#1d4a94", // granatowe tło
         minHeight: "100vh",         // pełna wysokość ekranu
@@ -98,6 +105,39 @@ const Orders: React.FC = () => {
         color: "#fff",
         cursor: "pointer",
         fontWeight: "bold" as const,
+      },
+      grid: {
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+        gap: "30px",
+        marginTop: "20px",
+        justifyItems: "center",
+      },
+      card: {
+        border: "2px solid #1d4a94",
+        borderRadius: "8px",
+        padding: "12px",
+        width: "180px",
+        backgroundColor: "white",
+        textAlign: "center" as const,
+        transition: "transform 0.2s ease-in-out",
+      },
+      link: {
+        textDecoration: "none",
+        color: "#000",
+        fontWeight: "bold" as const,
+        fontSize: "15px",
+      },
+      desc: {
+        fontSize: "12px",
+        color: "#444",
+        height: "60px",
+        overflow: "hidden",
+      },
+      price: {
+        fontWeight: "bold" as const,
+        marginTop: "10px",
+        color: "black",
       },
     };
     

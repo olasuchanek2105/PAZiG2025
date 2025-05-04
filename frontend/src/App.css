@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: #254d9e; /* lub inny kolor */
+  font-family: 'Montserrat', sans-serif;
+}
+
+img {
+  display: inline-block !important;
+}
+
+* { outline: none !important; }
+a:focus,
+a:active,
+div:focus,
+div:active,
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
