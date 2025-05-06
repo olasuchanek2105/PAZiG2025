@@ -152,7 +152,7 @@ const Home = () => {
 // Stylizacja
 const styles: { [key: string]: React.CSSProperties } = {
   nav: {
-    backgroundColor: "#eaf6ff",
+    backgroundColor: "#e5f3ff",
     paddingTop: "20px",
     paddingBottom: "20px",
     display: "flex",

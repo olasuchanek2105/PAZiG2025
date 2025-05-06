@@ -118,7 +118,7 @@ export default CreateListing;
 
 const styles: { [key: string]: React.CSSProperties } = {
   page: {
-    backgroundColor: "#1d4a94",
+    backgroundColor: "#ffffff",
     minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -126,7 +126,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "2rem",
   },
   form: {
-    backgroundColor: "#eef6ff",
+    backgroundColor: "#e5f3ff",
     borderRadius: "20px",
     padding: "30px",
     width: "320px",

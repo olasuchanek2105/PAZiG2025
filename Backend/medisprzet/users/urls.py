@@ -8,9 +8,9 @@ router.register(r'', UserViewSet)
 
 
 urlpatterns = [
-    path('auth/', include('dj_rest_auth.urls')),                    # login, logout, password reset
-    path('auth/registration/', include('dj_rest_auth.registration.urls')),  # rejestracja
-    path('', include(router.urls)),
+    path('', include('dj_rest_auth.urls')),  # /api/auth/login/, logout, password reset itd.
+    path('/registration', include('dj_rest_auth.registration.urls')),  # /api/auth/registration/
+    path('', include(router.urls)),  # np. /api/users/
 ]
 
 #endpointy do uzycia:

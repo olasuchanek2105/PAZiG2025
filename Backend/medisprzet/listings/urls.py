@@ -9,7 +9,7 @@ router.register(r'', OrderViewSet, basename='listings')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api/', include('dj_rest_auth.urls')),
+    path('', include('dj_rest_auth.urls')),
     
 ]
 
