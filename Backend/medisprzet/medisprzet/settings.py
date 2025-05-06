@@ -187,4 +187,5 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = "/" #przekierowanie po zalogowaniu - na poczatek pewnie do strony glownej
 LOGOUT_REDIRECT_URL = "/" #po wylogowaniu
 
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

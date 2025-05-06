@@ -5,7 +5,7 @@ const CreateListing: React.FC = () => {
     title: "",
     price: "",
     status: "",
-    producer: "",
+    producent: "",
     description: "",
     category: "",
     image: null as File | null,
@@ -20,9 +20,45 @@ const CreateListing: React.FC = () => {
     setForm({ ...form, image: e.target.files?.[0] || null });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form); // Tu wstaw fetch do API
+
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("price", form.price);
+    formData.append("status", form.status);
+    formData.append("producent", form.producent);
+    formData.append("description", form.description);
+    formData.append("category", form.category);
+    if (form.image) {
+      formData.append("image", form.image);
+    }
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/listings/", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("Ogłoszenie zostało dodane!");
+        // czyszczenie formularza
+        setForm({
+          title: "",
+          price: "",
+          status: "",
+          producent: "",
+          description: "",
+          category: "",
+          image: null,
+        });
+      } else {
+        alert("Błąd podczas dodawania ogłoszenia.");
+      }
+    } catch (error) {
+      console.error("Wystąpił błąd:", error);
+      alert("Błąd sieci.");
+    }
   };
 
   return (
@@ -45,7 +81,7 @@ const CreateListing: React.FC = () => {
 
         <label style={styles.label}>
           Producent:
-          <input type="text" name="producer" value={form.producer} onChange={handleChange} style={styles.input} />
+          <input type="text" name="producent" value={form.producent} onChange={handleChange} style={styles.input} />
         </label>
 
         <label style={styles.label}>
