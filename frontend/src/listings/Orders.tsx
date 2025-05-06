@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"; // Importujemy React i hook useState
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 
@@ -9,6 +10,11 @@ const Orders: React.FC = () => {
   // Stany do przechowywania danych z formularza
   const [listings, setListings] = useState([]);
   const [error, setError] = useState("");
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get("query")?.toLowerCase() || "";
+
 
     // Wysyłamy zapytanie POST do Django backendu (dj-rest-auth)
     useEffect(() => {
@@ -23,7 +29,11 @@ const Orders: React.FC = () => {
   
           if (response.ok) {
             const data = await response.json();
-            setListings(data);
+            const filtered = data.filter((listing: any) =>
+              listing.title.toLowerCase().includes(searchQuery)
+            );
+            setListings(filtered);
+
           } else {
             const errorData = await response.json();
             setError("Błąd: " + JSON.stringify(errorData));

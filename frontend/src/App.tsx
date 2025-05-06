@@ -7,6 +7,7 @@ import Orders from "./listings/Orders";
 import Account from './auth/Account';
 import OrderDetails from './listings/OrderDetails';
 import CreateListing from "./listings/CreateListing";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -84,12 +85,69 @@ function App() {
 }
 
 // Komponent strony głównej
-const Home = () => (
-  <div>
-    <h1 style={styles.heading}>Witaj w aplikacji!</h1>
-    <p style={styles.paragraph}>Wybierz zakładkę z menu powyżej.</p>
-  </div>
-);
+
+
+const Home = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      navigate(`/listings?query=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
+  return (
+    <div style={styles.heroWrapper}>
+      {/* GÓRNA część – hero */}
+      <div style={styles.hero}>
+        <div style={styles.left}>
+          <p style={styles.text}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+          </p>
+          <label>
+            <strong style={{ color: "white" }}>Znajdź produkt</strong>
+          </label>
+          <input
+            type="text"
+            placeholder="🔍 Wyszukaj"
+            style={styles.search}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleSearch}
+          />
+        </div>
+
+        <img
+          src="/homePage.png"
+          alt="Ciśnieniomierz"
+          style={styles.heroImage}
+        />
+      </div>
+
+      {/* DOLNA część – popularne */}
+      <div style={styles.popularSection}>
+        <p style={styles.popularTitle}>Lub zobacz często wyszukiwane</p>
+        <div style={styles.popularItems}>
+          {[
+            { label: "Kule medyczne", icon: "/popular/icon1.png" },
+            { label: "Wózki inwalidzkie", icon: "/popular/icon2.png" },
+            { label: "Chodzik", icon: "/popular/icon3.png" },
+            { label: "Termometr", icon: "/popular/icon4.png" },
+            { label: "Ciśnieniomierz", icon: "/popular/icon5.png" },
+          ].map((item, i) => (
+            <div key={i} style={styles.popularItem}>
+              <img src={item.icon} alt={item.label} style={styles.popularIcon} />
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+  
+};
+
 
 // Stylizacja
 const styles: { [key: string]: React.CSSProperties } = {
@@ -169,6 +227,83 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontWeight: "bold",
     transition: "background-color 0.3s",
   },
+  hero: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    gap: "40px",
+  },
+  heroWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "40px",
+    padding: "40px",
+    backgroundColor: "#1d4a94",
+    borderRadius: "20px",
+    margin: "40px auto",
+    width: "80%",
+  },
+  left: {
+    flex: 1,
+    color: "white",
+    display: "flex",               // dodaj
+    flexDirection: "column",       // dodaj
+    alignItems: "flex-start",      // dodaj (żeby wyrównać do lewej)
+  },
+  text: {
+    marginBottom: "35px",
+    lineHeight: "1.6",
+    fontSize: "13px",
+    textAlign: "justify",
+    width: "70%",
+  },
+  search: {
+    padding: "12px 20px",
+    borderRadius: "20px",
+    border: "none",
+    fontSize: "14px",
+    width: "60%",
+    marginTop: "20px",
+  },
+  heroImage: {
+    flex: 1,
+    maxWidth: "600px",
+    borderRadius: "16px",
+  },
+  popularSection: {
+    marginTop: "40px",
+    textAlign: "left" as const,
+    color: "white",
+  },
+  
+  popularTitle: {
+    fontWeight: "bold",
+    marginBottom: "20px",
+  },
+  
+  popularItems: {
+    display: "flex",
+    gap: "20px",
+    flexWrap: "wrap",
+  },
+  
+  popularItem: {
+    backgroundColor: "white",
+    borderRadius: "15px",
+    padding: "15px 20px",
+    color: "black",
+    textAlign: "center" as const,
+    width: "100px",
+    fontSize: "13px",
+  },
+  
+  popularIcon: {
+    width: "40px",
+    height: "40px",
+    marginBottom: "10px",
+  },  
   
 
 };
