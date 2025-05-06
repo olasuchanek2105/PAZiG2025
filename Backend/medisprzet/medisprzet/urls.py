@@ -19,9 +19,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/users/', include('users.urls')),      #REST API użytkowników
+    path('api/users/', include('users.urls')),        # API użytkowników
     path('api/listings/', include('listings.urls')),  # API ogłoszeń
-    path('api/', include('users.urls')), 
+    path('api/', include('dj_rest_auth.urls')),        # logowanie/rejestracja
 ]
 
 
