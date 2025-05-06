@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 
-type Order = {
+type Listings = {
     id: number;
     title: string;
     description: string;
@@ -13,9 +13,9 @@ type Order = {
     producer?: string;
   };
 
-const OrderDetails: React.FC = () => {
+const ListingDetails: React.FC = () => {
     const{id} = useParams() 
-    const [order, setOrder] = useState<Order | null>(null);
+    const [listing, setListing] = useState<Listings | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -23,7 +23,7 @@ const OrderDetails: React.FC = () => {
       fetch(`http://localhost:8000/api/listings/${id}/`)
         .then((res) => res.json())
         .then((data) => {
-          setOrder(data);
+          setListing(data);
           setLoading(false);
         })
         .catch(() => {
@@ -34,12 +34,12 @@ const OrderDetails: React.FC = () => {
 
     if (loading) return <p>Ładowanie...</p>;
     if (error) return <p>{error}</p>;
-    if (!order) return <p>Nie znaleziono ogłoszenia.</p>;
+    if (!listing) return <p>Nie znaleziono ogłoszenia.</p>;
 
     return (
      <div style={styles.page}>
       <div style={styles.container}>
-        <h2 style={styles.title}>{order.title}</h2>
+        <h2 style={styles.title}>{listing.title}</h2>
   
         <div style={styles.main}>
           {/* Lewa kolumna */}
@@ -49,9 +49,9 @@ const OrderDetails: React.FC = () => {
   
           {/* Prawa kolumna */}
           <div style={styles.right}>
-            <p style={styles.infoText}><strong>Cena:</strong> {order.price} zł</p>
-            <p style={styles.infoText}><strong>Stan:</strong> {order.status}</p>
-            <p style={styles.infoText}><strong>Producent:</strong> {order.producer || "Nieznany"}</p>
+            <p style={styles.infoText}><strong>Cena:</strong> {listing.price} zł</p>
+            <p style={styles.infoText}><strong>Stan:</strong> {listing.status}</p>
+            <p style={styles.infoText}><strong>Producent:</strong> {listing.producer || "Nieznany"}</p>
   
             <button style={styles.button}>Zamów</button>
   
@@ -65,14 +65,14 @@ const OrderDetails: React.FC = () => {
         {/* Sekcja opisu */}
         <div style={styles.descriptionBox}>
           <h3>Opis</h3>
-          <p>{order.description}</p>
+          <p>{listing.description}</p>
         </div>
       </div>
       </div> 
     );
   };
 
-  export default OrderDetails;
+  export default ListingDetails;
 
 // Stylizacja
 const styles: { [key: string]: React.CSSProperties } = {

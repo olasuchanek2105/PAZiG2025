@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Register from './auth/Register';
 import Login from "./auth/Login";
-import Orders from "./listings/Orders";
+import Listings from "./listings/Listings";
 import Account from './auth/Account';
-import OrderDetails from './listings/OrderDetails';
+import ListingDetails from './listings/ListingDetails';
 import CreateListing from "./listings/CreateListing";
 import { useNavigate } from "react-router-dom";
 
@@ -74,8 +74,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/listings" element={<Orders />} />
-          <Route path="/listings/:id" element={<OrderDetails />} />
+          <Route path="/listings" element={<Listings />} />
+          <Route path="/listings/:id" element={<ListingDetails />} />
           <Route path="/account" element={<Account />} />
           <Route path="/create" element={<CreateListing />} />
         </Routes>
