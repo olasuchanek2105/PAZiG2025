@@ -118,7 +118,7 @@ export default CreateListing;
 
 const styles: { [key: string]: React.CSSProperties } = {
   page: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#254d9e",
     minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -126,33 +126,37 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "2rem",
   },
   form: {
-    backgroundColor: "#e5f3ff",
+    backgroundColor: "#f1f8ff",
     borderRadius: "20px",
     padding: "30px",
     width: "320px",
     display: "flex",
     flexDirection: "column",
     gap: "15px",
+
   },
   label: {
     display: "flex",
     flexDirection: "column",
     fontSize: "14px",
-    fontWeight: "bold",
-    color: "#1d4a94",
+    // fontWeight: "bold",
+    color: "#000000",
+    textAlign: "left",
+
   },
   input: {
     marginTop: "6px",
     padding: "8px",
     borderRadius: "10px",
-    border: "none",
     backgroundColor: "#fff",
+    border: "1px solid #d9d9d9",
+    // boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
   },
   textarea: {
     marginTop: "6px",
     padding: "8px",
     borderRadius: "10px",
-    border: "none",
+    border: "1px solid #d9d9d9",
     backgroundColor: "#fff",
     resize: "vertical",
   },
@@ -166,6 +170,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     justifyContent: "center",
     alignItems: "center",
     cursor: "pointer",
+    border: "1px solid #d9d9d9",
   },
   uploadLabel: {
     fontSize: "36px",
