@@ -1,12 +1,12 @@
 from rest_framework import viewsets
-from .models import Orders
-from .serializers import OrderSerializer
+from .models import Listing
+from .serializers import ListingSerializer
 from django.http import JsonResponse
 
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Orders.objects.all()  # Zwraca wszystkie obiekty Order
-    serializer_class = OrderSerializer  # Używa serializera do walidacji i zapisu
+    queryset = Listing.objects.all()  # Zwraca wszystkie obiekty Order
+    serializer_class = ListingSerializer  # Używa serializera do walidacji i zapisu
 
 
 #post http://127.0.0.1:8000/api/listings/add/ 

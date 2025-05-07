@@ -8,6 +8,7 @@ const CreateListing: React.FC = () => {
     producent: "",
     description: "",
     category: "",
+    address: "",
     image: null as File | null,
   });
 
@@ -29,7 +30,9 @@ const CreateListing: React.FC = () => {
     formData.append("status", form.status);
     formData.append("producent", form.producent);
     formData.append("description", form.description);
-    formData.append("category", form.category);
+    formData.append("category_id", form.category);
+    formData.append("address", form.address || "");
+    formData.append("user_id", localStorage.getItem("userId") || "");
     if (form.image) {
       formData.append("image", form.image);
     }
@@ -50,6 +53,7 @@ const CreateListing: React.FC = () => {
           producent: "",
           description: "",
           category: "",
+          address: "",
           image: null,
         });
       } else {
