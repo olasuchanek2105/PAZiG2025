@@ -79,7 +79,7 @@ const CreateListing: React.FC = () => {
         </label>
 
         <label style={styles.label}>
-          Stan:
+          status:
           <input type="text" name="status" value={form.status} onChange={handleChange} style={styles.input} required />
         </label>
 
