@@ -5,7 +5,7 @@ from django.http import JsonResponse
 
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Listing.objects.all()  # Zwraca wszystkie obiekty Order
+    queryset = Listing.objects.all()  # Zwraca wszystkie obiekty Listing
     serializer_class = ListingSerializer  # Używa serializera do walidacji i zapisu
 
 
@@ -22,4 +22,3 @@ class OrderViewSet(viewsets.ModelViewSet):
 #   "status": 1
 # }
 
-#get http://127.0.0.1:8000/api/listings/add/

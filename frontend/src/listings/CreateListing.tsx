@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CreateListing: React.FC = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     title: "",
     price: "",
@@ -44,7 +46,9 @@ const CreateListing: React.FC = () => {
       });
 
       if (response.ok) {
-        alert("Ogłoszenie zostało dodane!");
+        
+        navigate("/listings");
+        localStorage.setItem("listingSuccess", "Ogłoszenie zostało dodane!");
         // czyszczenie formularza
         setForm({
           title: "",
@@ -68,6 +72,7 @@ const CreateListing: React.FC = () => {
   return (
     <div style={styles.page}>
       <form onSubmit={handleSubmit} style={styles.form}>
+        <h2 style={styles.title}>Dodaj Ogłoszenie</h2>
         <label style={styles.label}>
           Nazwa:
           <input type="text" name="title" value={form.title} onChange={handleChange} style={styles.input} required />
@@ -191,4 +196,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     cursor: "pointer",
     fontWeight: "bold",
   },
+  title: {
+    marginTop: "5px",
+    color: "#1d4a94",
+  }
 };

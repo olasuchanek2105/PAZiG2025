@@ -24,7 +24,6 @@ class Listing(models.Model):
         super().save(*args, **kwargs)
 
 
-
     class Meta:
         indexes = [
             models.Index(fields=['listing_id']), 
