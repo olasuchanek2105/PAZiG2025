@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate  } from "react-router-dom";
 
 
 type Listings = {
@@ -19,7 +19,8 @@ const ListingDetails: React.FC = () => {
     const [listing, setListing] = useState<Listings | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-
+    const navigate = useNavigate();
+    
     useEffect(() => {
       fetch(`http://localhost:8000/api/listings/${id}/`)
         .then((res) => res.json())
@@ -59,7 +60,16 @@ const ListingDetails: React.FC = () => {
             <p style={styles.infoText}><strong>Stan:</strong> {listing.status}</p>
             <p style={styles.infoText}><strong>Producent:</strong> {listing.producent || "Nieznany"}</p>
   
-            <button style={styles.button}>Zamów</button>
+           <button
+              onClick={() => {
+                console.log("Kliknięto przycisk Zamów");  // ← sprawdź, czy się pojawia w konsoli
+                navigate(`/listings/${id}/order`);
+
+              }}
+              style={styles.button}
+            >
+              Zamów
+            </button>
   
             <div style={styles.seller}>
               <p style={styles.infoText}><strong>Sprzedawca:</strong> Jan Kowalski</p>

@@ -7,6 +7,7 @@ import Listings from "./listings/Listings";
 import Account from './auth/Account';
 import ListingDetails from './listings/ListingDetails';
 import CreateListing from "./listings/CreateListing";
+import OrderPage from "./orders/OrderPage";
 import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
           <Route path="/listings/:id" element={<ListingDetails />} />
           <Route path="/account" element={<Account />} />
           <Route path="/create" element={<CreateListing />} />
+          <Route path="/listings/:id/order" element={<OrderPage />} />
         </Routes>
       </div>
     </Router>
