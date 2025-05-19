@@ -10,7 +10,8 @@ type Listings = {
     address: string;
     created_at: Date;
     status: string;
-    producer?: string;
+    producent?: string;
+    image?: string;
   };
 
 const ListingDetails: React.FC = () => {
@@ -44,14 +45,19 @@ const ListingDetails: React.FC = () => {
         <div style={styles.main}>
           {/* Lewa kolumna */}
           <div style={styles.left}>
-            <div style={styles.imagePlaceholder}>Tu będzie obrazek</div>
+            {listing.image ? (
+            <img src={listing.image} alt={listing.title} style={styles.image} />
+          ) : (
+            <div style={styles.imagePlaceholder}>Brak zdjęcia</div>
+          )}
+
           </div>
   
           {/* Prawa kolumna */}
           <div style={styles.right}>
             <p style={styles.infoText}><strong>Cena:</strong> {listing.price} zł</p>
             <p style={styles.infoText}><strong>Stan:</strong> {listing.status}</p>
-            <p style={styles.infoText}><strong>Producent:</strong> {listing.producer || "Nieznany"}</p>
+            <p style={styles.infoText}><strong>Producent:</strong> {listing.producent || "Nieznany"}</p>
   
             <button style={styles.button}>Zamów</button>
   
@@ -145,6 +151,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "15px",
     marginTop: "30px",
   },
+  image: {
+  width: "100%",
+  height: "250px",
+  objectFit: "cover",
+  borderRadius: "8px",
+},
   
 };
 
