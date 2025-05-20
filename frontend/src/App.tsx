@@ -156,7 +156,25 @@ const Home = () => {
             </div>
           ))}
         </div>
+            {/* Popularne ogłoszenia */}
+            <div style={styles.popularListingsSection}>
+              <h2 style={styles.popularListingsTitle}>🩺 Nowości / Popularne ogłoszenia</h2>
+              <div style={styles.popularListingsItems}>
+              {[
+                { title: "Wózek elektryczny – jak nowy!", price: "1 200 zł", image: "/wozekElektr.png" },
+                { title: "Pakiet rehabilitacyjny – tanio", price: "350 zł", image: "/rehab.jpeg" },
+                { title: "Chodzik składany – lekki", price: "220 zł", image: "/chodzik1.png" },
+              ].map((item: { title: string; price: string; image: string }, i) => (
+                <div key={i} style={styles.popularListingCard}>
+                  <img src={item.image} alt={item.title} style={styles.popularListingImage} />
+                  <h4 style={styles.popularListingTitle}>{item.title}</h4>
+                  <p style={styles.popularListingPrice}>{item.price}</p>
+                </div>
+              ))}
+          </div>
+          </div>      
       </div>
+      
     </div>
 </div>
   );
@@ -341,20 +359,69 @@ const styles: { [key: string]: React.CSSProperties } = {
     position: "relative",
     width: "100%",
   },
-  popularOverlay: {
+popularOverlay: {
     position: "absolute",
-    top: "25%",                // wyśrodkowanie w pionie
-    left: "50%",               // wyśrodkowanie w poziomie
-    transform: "translate(-50%, -50%)", // faktyczne przesunięcie środka
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     backgroundColor: "rgba(255, 255, 255, 0.9)",
-    padding: "35px",
-    borderRadius: "20px",
-    width: "75%",             // ← tu była np. `maxWidth`, zmieniamy na `width`
-    maxWidth: "1200px", 
+    padding: "50px 30px",
+    borderRadius: "25px",
+    width: "90%",
+    maxWidth: "1300px",
     boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
     color: "black",
-    textAlign: "center", // wycentrowanie tekstu
+    textAlign: "center" as const,
   },
+
+  popularListingsSection: {
+  marginTop: "60px",
+  padding: "40px 20px",
+  backgroundColor: "#f4f9ff",
+  borderRadius: "20px",
+  textAlign: "center" as const,
+},
+
+popularListingsTitle: {
+  fontSize: "24px",
+  fontWeight: "bold",
+  marginBottom: "30px",
+},
+
+popularListingsItems: {
+  display: "flex",
+  justifyContent: "center",
+  gap: "30px",
+  flexWrap: "wrap",
+},
+
+popularListingCard: {
+  backgroundColor: "white",
+  borderRadius: "15px",
+  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
+  padding: "20px",
+  width: "200px",
+  textAlign: "center" as const,
+},
+  popularListingImage: {
+    width: "100%",
+    height: "120px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    marginBottom: "15px",
+  },
+
+  popularListingTitle: {
+    fontSize: "16px",
+    fontWeight: "500",
+    marginBottom: "10px",
+  },
+
+  popularListingPrice: {
+    color: "#1d4a94",
+    fontWeight: "bold",
+  },
+
 };
 
 export default App;
