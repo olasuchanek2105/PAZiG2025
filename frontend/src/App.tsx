@@ -100,6 +100,8 @@ const Home = () => {
   };
 
   return (
+
+  <div>
     <div style={styles.heroWrapper}>
       {/* GÓRNA część – hero */}
       <div style={styles.hero}>
@@ -108,7 +110,7 @@ const Home = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
           </p>
           <label>
-            <strong style={{ color: "white" }}>Znajdź produkt</strong>
+            <strong style={{ color: "white", fontSize: "25px" }}>Znajdź produkt</strong>
           </label>
           <input
             type="text"
@@ -121,22 +123,32 @@ const Home = () => {
         </div>
 
         <img
-          src="/homePage.png"
+          src="/Doctor.png"
           alt="Ciśnieniomierz"
           style={styles.heroImage}
         />
       </div>
 
-      {/* DOLNA część – popularne */}
-      <div style={styles.popularSection}>
+
+    </div>
+
+    <div style={styles.popularWrapper}>
+      <img
+        src="/homePageTlo.png"
+        alt="Medical background"
+        style={styles.fullWidthImage}
+      />
+
+      <div style={styles.popularOverlay}>
         <p style={styles.popularTitle}>Lub zobacz często wyszukiwane</p>
         <div style={styles.popularItems}>
           {[
-            { label: "Kule medyczne", icon: "/popular/icon1.png" },
-            { label: "Wózki inwalidzkie", icon: "/popular/icon2.png" },
-            { label: "Chodzik", icon: "/popular/icon3.png" },
-            { label: "Termometr", icon: "/popular/icon4.png" },
-            { label: "Ciśnieniomierz", icon: "/popular/icon5.png" },
+            { label: "Sprzęt ortopedyczny i rehabilitacyjny", icon: "/orthopedics.png" },
+            { label: "Diagnostyka i pomiary", icon: "/diagnostic.png" },
+            { label: "Wyposażenie domowe", icon: "/nursing-home.png" },
+            { label: "Higiena i ochrona osobista", icon: "/washing-hands.png" },
+            { label: "Sprzęt pomocniczy", icon: "/hearing-aid.png" },
+            { label: "Pielęgnacja", icon: "/healthcare.png" },
           ].map((item, i) => (
             <div key={i} style={styles.popularItem}>
               <img src={item.icon} alt={item.label} style={styles.popularIcon} />
@@ -146,6 +158,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+</div>
   );
   
 };
@@ -154,13 +167,16 @@ const Home = () => {
 // Stylizacja
 const styles: { [key: string]: React.CSSProperties } = {
   nav: {
-    backgroundColor: "#f1f8ff",
+    backgroundColor: "white",
     paddingTop: "20px",
     paddingBottom: "20px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     gap: "60px",
+    borderRadius: "40px",
+    width: "60%",
+    margin: "20px auto 0 auto",
   },
   link: {
     display: "flex",
@@ -169,7 +185,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "black",
     textDecoration: "none",
     fontWeight: "lighter",
-    fontSize: "15px",
+    fontSize: "20px",
   },
   dropdown: {
     position: "relative",
@@ -225,39 +241,41 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "8px 16px",
     borderRadius: "20px",
     textDecoration: "none",
-    fontSize: "14px",
+    fontSize: "18px",
     fontWeight: "bold",
     transition: "background-color 0.3s",
   },
   hero: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-between", // wcześniej było space-between
     alignItems: "center",
-    width: "100%",
-    gap: "40px",
+    gap: "30px",
   },
+
   heroWrapper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     gap: "40px",
     padding: "40px",
-    backgroundColor: "#1d4a94",
-    borderRadius: "20px",
-    margin: "40px auto",
-    width: "80%",
+    backgroundColor: "#237fd4",
+    borderRadius: "0px",
+    width: "90%",
+    // maxWidth: "1200px",
+    margin: "20px auto",
   },
   left: {
     flex: 1,
     color: "white",
-    display: "flex",               // dodaj
-    flexDirection: "column",       // dodaj
-    alignItems: "flex-start",      // dodaj (żeby wyrównać do lewej)
+    display: "flex",            
+    flexDirection: "column",       
+    alignItems: "flex-start",
+    marginLeft: "60px"     
   },
   text: {
-    marginBottom: "35px",
+    marginBottom: "70px",
     lineHeight: "1.6",
-    fontSize: "13px",
+    fontSize: "20px",
     textAlign: "justify",
     width: "70%",
   },
@@ -266,13 +284,16 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "20px",
     border: "none",
     fontSize: "14px",
-    width: "60%",
-    marginTop: "20px",
+    width: "50%",
+    marginTop: "30px",
   },
-  heroImage: {
-    flex: 1,
+  heroImage: {                   
     maxWidth: "600px",
+    width: "100%",
     borderRadius: "16px",
+    objectFit: "contain",
+    marginRight: "160px",
+    marginTop: "30px"
   },
   popularSection: {
     marginTop: "40px",
@@ -282,13 +303,15 @@ const styles: { [key: string]: React.CSSProperties } = {
   
   popularTitle: {
     fontWeight: "bold",
+    fontSize: "24px",
     marginBottom: "20px",
   },
-  
+
   popularItems: {
     display: "flex",
-    gap: "20px",
+    gap: "30px",
     flexWrap: "wrap",
+    justifyContent: "center",
   },
   
   popularItem: {
@@ -297,17 +320,41 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "15px 20px",
     color: "black",
     textAlign: "center" as const,
-    width: "100px",
+    width: "120px",
+    height: "150px",
     fontSize: "13px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
   },
-  
-  popularIcon: {
+ popularIcon: {
     width: "40px",
     height: "40px",
     marginBottom: "10px",
-  },  
-  
-
+    objectFit: "contain",
+  },
+  fullWidthImage: {
+    width: "100%",
+    height: "auto",
+    display: "block",
+    opacity: 0.5,
+  },
+ popularWrapper: {
+    position: "relative",
+    width: "100%",
+  },
+  popularOverlay: {
+    position: "absolute",
+    top: "25%",                // wyśrodkowanie w pionie
+    left: "50%",               // wyśrodkowanie w poziomie
+    transform: "translate(-50%, -50%)", // faktyczne przesunięcie środka
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    padding: "35px",
+    borderRadius: "20px",
+    width: "75%",             // ← tu była np. `maxWidth`, zmieniamy na `width`
+    maxWidth: "1200px", 
+    boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+    color: "black",
+    textAlign: "center", // wycentrowanie tekstu
+  },
 };
 
 export default App;

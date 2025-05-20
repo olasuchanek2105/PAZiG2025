@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -38,7 +39,7 @@
 }
 
 body {
-  background-color: #254d9e; /* lub inny kolor */
+  background-color: #eaf8ff; /* lub inny kolor */
   font-family: 'Montserrat', sans-serif;
 }
 
