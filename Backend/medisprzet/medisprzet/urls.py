@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('users.urls'), ),        # API użytkowników NIE ZMIENIAC
     path('api/listings/', include('listings.urls')),  # API ogłoszeń  NIE ZMIENIAC
+    path('api/orders/', include('purchases.urls')),
+
            
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

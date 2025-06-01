@@ -20,6 +20,7 @@ const ListingDetails: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const isLoggedIn = !!localStorage.getItem("authToken");
     
     useEffect(() => {
       fetch(`http://localhost:8000/api/listings/${id}/`)
@@ -60,16 +61,16 @@ const ListingDetails: React.FC = () => {
             <p style={styles.infoText}><strong>Stan:</strong> {listing.status}</p>
             <p style={styles.infoText}><strong>Producent:</strong> {listing.producent || "Nieznany"}</p>
   
-           <button
-              onClick={() => {
-                console.log("Kliknięto przycisk Zamów");  // ← sprawdź, czy się pojawia w konsoli
-                navigate(`/listings/${id}/order`);
+            {isLoggedIn ? (
+              <button onClick={() => navigate(`/listings/${id}/order`)} style={styles.button}>
+                Zamów
+              </button>
+            ) : (
+              <p style={{ color: "red", fontWeight: "bold" }}>
+                Musisz być zalogowany, aby złożyć zamówienie.
+              </p>
+            )}
 
-              }}
-              style={styles.button}
-            >
-              Zamów
-            </button>
   
             <div style={styles.seller}>
               <p style={styles.infoText}><strong>Sprzedawca:</strong> Jan Kowalski</p>

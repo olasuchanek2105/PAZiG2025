@@ -6,6 +6,21 @@ type User = {
   username: string;
   email: string;
 };
+type Order = {
+  id: number;
+  listing: number; // lub możesz potem rozwinąć na tytuł/nazwę listingów
+  name: string;
+  phone: string;
+  email: string;
+  street: string;
+  postal_code: string;
+  city: string;
+  notes: string;
+  created_at: string;
+};
+
+
+
 // Definiujemy typ użytkownika (TS) – spodziewamy się tylko username i email
 
 const Account: React.FC = () => {
@@ -13,6 +28,7 @@ const Account: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -41,14 +57,22 @@ const Account: React.FC = () => {
         "Authorization": `Token ${token}`, 
         // Token autoryzacji musi być podany w nagłówku – tak Django sprawdza, kim jesteś
       },
-
-    
-      
     })
       .then((res) => res.json())  // Odpowiedź z backendu konwertujemy do JSON
       .then((data) => setUser(data)) // Jeśli wszystko OK, zapisujemy dane użytkownika do stanu
       .catch(() => setMessage("Błąd podczas pobierania danych użytkownika."));
       // Obsługa błędu – np. brak połączenia, błędny token itp.
+      // pobierz zamówienia
+        fetch("http://localhost:8000/api/orders/my-orders/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => setOrders(data))
+          .catch(() => setMessage("Błąd podczas pobierania zamówień."));
   }, []); // Pusta tablica [] = efekt wykona się tylko raz po załadowaniu komponentu
 
   if (message) {
@@ -67,6 +91,22 @@ const Account: React.FC = () => {
       <h2>Twoje konto</h2>
       <p><strong>Nazwa użytkownika:</strong> {user.username}</p>
       <p><strong>Email:</strong> {user.email}</p>
+      <p><strong>Historia zamówień:</strong></p>
+      {orders.length === 0 ? (
+        <p>Brak zamówień.</p>
+      ) : (
+        <ul style={{ paddingLeft: "0", listStyle: "none" }}>
+          {orders.map((order) => (
+            <li key={order.id} style={styles.orderItem}>
+              <strong>Zamówienie #{order.id}</strong> z {new Date(order.created_at).toLocaleString()}<br />
+              <span>{order.street}, {order.postal_code} {order.city}</span><br />
+              <span>{order.email} | {order.phone}</span><br />
+              <span>Notatki: {order.notes || "brak"}</span>
+              <hr />
+            </li>
+          ))}
+        </ul>
+      )}
 
       <button onClick={handleLogout} style={styles.button}>
         Wyloguj się
@@ -78,7 +118,7 @@ const Account: React.FC = () => {
 };
 
 // Proste style (CSS-in-JS) dla kontenera
-const styles = {
+const styles: { [key: string]: React.CSSProperties } = {
   container: {
     marginTop: "30px",
     padding: "20px",
@@ -97,7 +137,13 @@ const styles = {
     color: "white",
     cursor: "pointer",
     fontWeight: "bold" as const,
-  }
+  },
+  orderItem: {
+  padding: "10px 0",
+  borderBottom: "1px solid #ccc",
+  textAlign: "left",
+}
+
 };
 
 export default Account;
