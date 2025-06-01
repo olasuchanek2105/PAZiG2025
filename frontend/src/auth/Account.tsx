@@ -18,6 +18,14 @@ type Order = {
   notes: string;
   created_at: string;
 };
+type Listing = {
+  id: number;
+  title: string;
+  price: string;
+  created_at: string;
+  status?: string;
+};
+
 
 
 
@@ -29,7 +37,7 @@ const Account: React.FC = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const [orders, setOrders] = useState<Order[]>([]);
-
+  const [listings, setListings] = useState<Listing[]>([]);
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     navigate("/login");
@@ -73,6 +81,21 @@ const Account: React.FC = () => {
           .then((res) => res.json())
           .then((data) => setOrders(data))
           .catch(() => setMessage("Błąd podczas pobierania zamówień."));
+
+    fetch("http://localhost:8000/api/listings/my-listings/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`,
+        },
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Otrzymane ogłoszenia:", data); // <------ TU!
+        setListings(data);
+      })
+      .catch(() => setMessage("Błąd podczas pobierania ogłoszeń."));
+
   }, []); // Pusta tablica [] = efekt wykona się tylko raz po załadowaniu komponentu
 
   if (message) {
@@ -107,7 +130,22 @@ const Account: React.FC = () => {
           ))}
         </ul>
       )}
-
+      <p><strong>Moje Ogłoszenia:</strong></p>
+      
+          {listings.length === 0 ? (
+            <p>Brak ogłoszeń.</p>
+          ) : (
+            <ul style={{ paddingLeft: "0", listStyle: "none" }}>
+              {listings.map((listing) => (
+                <li key={listing.id} style={styles.orderItem}>
+                  <strong>{listing.title}</strong> – {listing.price} zł<br />
+                  <small>Dodano: {new Date(listing.created_at).toLocaleString()}</small><br />
+                  <span>Status: {listing.status || "brak"}</span>
+                  <hr />
+                </li>
+              ))}
+            </ul>
+          )}
       <button onClick={handleLogout} style={styles.button}>
         Wyloguj się
       </button>
@@ -125,7 +163,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     maxWidth: "500px",
     marginLeft: "auto",
     marginRight: "auto",
-    backgroundColor: "#f4f8ff",
+    backgroundColor: "white",
     borderRadius: "20px",
   },
   button: {

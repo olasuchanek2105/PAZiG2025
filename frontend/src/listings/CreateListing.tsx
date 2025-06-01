@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+
+
 
 const CreateListing: React.FC = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("authToken");
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+  
+
+
   const [form, setForm] = useState({
     title: "",
     price: "",
-    status: "",
+    // status: "",
     producent: "",
     description: "",
     category: "",
@@ -14,6 +22,7 @@ const CreateListing: React.FC = () => {
     image: null as File | null,
   });
 
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -23,27 +32,37 @@ const CreateListing: React.FC = () => {
     setForm({ ...form, image: e.target.files?.[0] || null });
   };
 
+        useEffect(() => {
+        fetch("http://localhost:8000/api/listings/categories/")
+          .then((res) => res.json())
+          .then((data) => setCategories(data))
+          .catch((err) => console.error("Błąd ładowania kategorii", err));
+      }, []);
+  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("price", form.price);
-    formData.append("status", form.status);
+    // formData.append("status", form.status);
     formData.append("producent", form.producent);
     formData.append("description", form.description);
     formData.append("category_id", form.category);
     formData.append("address", form.address || "");
-    formData.append("user_id", localStorage.getItem("userId") || "");
     if (form.image) {
       formData.append("image", form.image);
     }
 
     try {
       const response = await fetch("http://127.0.0.1:8000/api/listings/", {
-        method: "POST",
-        body: formData,
-      });
+          method: "POST",
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+          body: formData,
+        });
 
       if (response.ok) {
         
@@ -53,7 +72,7 @@ const CreateListing: React.FC = () => {
         setForm({
           title: "",
           price: "",
-          status: "",
+          // status: "",
           producent: "",
           description: "",
           category: "",
@@ -83,10 +102,10 @@ const CreateListing: React.FC = () => {
           <input type="number" name="price" value={form.price} onChange={handleChange} style={styles.input} required />
         </label>
 
-        <label style={styles.label}>
+        {/* <label style={styles.label}>
           status:
           <input type="text" name="status" value={form.status} onChange={handleChange} style={styles.input} required />
-        </label>
+        </label> */}
 
         <label style={styles.label}>
           Producent:
@@ -97,11 +116,26 @@ const CreateListing: React.FC = () => {
           Opis:
           <textarea name="description" value={form.description} onChange={handleChange} style={styles.textarea} />
         </label>
-
         <label style={styles.label}>
-          Kategoria
-          <input type="text" name="category" value={form.category} onChange={handleChange} style={styles.input} />
+          Kategoria:
+          <select
+            name="category"
+            value={form.category}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setForm({ ...form, category: e.target.value })
+            }
+            style={styles.input}
+            required
+          >
+            <option value="">-- wybierz kategorię --</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
         </label>
+
 
         <label style={styles.label}>
           Dodaj zdjęcia
@@ -127,7 +161,7 @@ export default CreateListing;
 
 const styles: { [key: string]: React.CSSProperties } = {
   page: {
-    backgroundColor: "#254d9e",
+    backgroundColor: "#eaf8ff",
     minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -135,13 +169,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "2rem",
   },
   form: {
-    backgroundColor: "#f1f8ff",
+    backgroundColor: "white",
     borderRadius: "20px",
     padding: "30px",
     width: "320px",
     display: "flex",
     flexDirection: "column",
     gap: "15px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
 
   },
   label: {
@@ -151,6 +186,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     // fontWeight: "bold",
     color: "#000000",
     textAlign: "left",
+    
 
   },
   input: {
@@ -160,6 +196,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     backgroundColor: "#fff",
     border: "1px solid #d9d9d9",
     // boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+    
   },
   textarea: {
     marginTop: "6px",

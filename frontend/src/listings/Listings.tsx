@@ -100,10 +100,10 @@ const Listings: React.FC = () => {
     // Stylizacja komponentu (prosty system stylów jako obiekt JS)
       const styles: { [key: string]: React.CSSProperties } = {
       header: {
-        color: "white",
+        color: "#1d4a94",
       },      
       page: {
-        backgroundColor: "#1d4a94", // granatowe tło
+        backgroundColor: "#eaf8ff", // blekitne tło
         minHeight: "100vh",         // pełna wysokość ekranu
         display: "flex",
         justifyContent: "center",
@@ -139,14 +139,16 @@ const Listings: React.FC = () => {
       },
       grid: {
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
         gap: "50px 150px",
         marginTop: "20px",
+        marginLeft: "100px",
+        marginRight: "100px",
         justifyItems: "center",
       },
       card: {
         marginTop: "20px",
-        border: "2px solid #1d4a94",
+        // border: "2px solid #1d4a94",
         borderRadius: "8px",
         padding: "12px",
         width: "220px",
@@ -154,6 +156,7 @@ const Listings: React.FC = () => {
         backgroundColor: "white",
         textAlign: "center" as const,
         transition: "transform 0.2s ease-in-out",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
       },
       link: {
         textDecoration: "none",
