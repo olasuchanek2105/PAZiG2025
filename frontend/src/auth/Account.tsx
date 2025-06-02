@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"; 
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 // Importujemy React oraz hooki: useEffect (do efektu po załadowaniu komponentu) i useState (do przechowywania danych)
 
 type User = {
@@ -24,6 +26,7 @@ type Listing = {
   price: string;
   created_at: string;
   status?: string;
+  listing_id: string;
 };
 
 
@@ -141,7 +144,9 @@ const Account: React.FC = () => {
                   <strong>{listing.title}</strong> – {listing.price} zł<br />
                   <small>Dodano: {new Date(listing.created_at).toLocaleString()}</small><br />
                   <span>Status: {listing.status || "brak"}</span>
+                  <Link to={`/listings/edit/${listing.listing_id}`}>Edytuj</Link>
                   <hr />
+                  
                 </li>
               ))}
             </ul>

@@ -8,6 +8,7 @@ import Account from './auth/Account';
 import ListingDetails from './listings/ListingDetails';
 import CreateListing from "./listings/CreateListing";
 import OrderPage from "./orders/OrderPage";
+import EditListing from "./listings/EditListing";
 import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/create" element={<CreateListing />} />
           <Route path="/listings/:id/order" element={<OrderPage />} />
+          <Route path="/listings/edit/:listingId" element={<EditListing />} />
         </Routes>
       </div>
     </Router>
