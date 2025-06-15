@@ -17,34 +17,41 @@ const Listings: React.FC = () => {
 
 
     // Wysyłamy zapytanie POST do Django backendu (dj-rest-auth)
-    useEffect(() => {
-      const fetchListings = async () => {
-        try {
-          const response = await fetch("http://127.0.0.1:8000/api/listings/", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-  
-          if (response.ok) {
-            const data = await response.json();
-            const filtered = data.filter((listing: any) =>
-              listing.title.toLowerCase().includes(searchQuery)
-            );
-            setListings(filtered);
+useEffect(() => {
+  const fetchListings = async () => {
+    try {
+      const category = queryParams.get("category");
+      const url = category
+        ? `http://127.0.0.1:8000/api/listings/?category=${encodeURIComponent(category)}`
+        : "http://127.0.0.1:8000/api/listings/";
 
-          } else {
-            const errorData = await response.json();
-            setError("Błąd: " + JSON.stringify(errorData));
-          }
-        } catch (err) {
-          setError("Błąd sieci: " + err);
-        }
-      };
-  
-      fetchListings();
-    }, []);
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const filtered = searchQuery
+          ? data.filter((listing: any) =>
+              listing.title.toLowerCase().includes(searchQuery)
+            )
+          : data;
+        setListings(filtered);
+      } else {
+        const errorData = await response.json();
+        setError("Błąd: " + JSON.stringify(errorData));
+      }
+    } catch (err) {
+      setError("Błąd sieci: " + err);
+    }
+  };
+
+  fetchListings();
+}, [searchQuery, location.search]);
+
 
     useEffect(() => {
       const message = localStorage.getItem("listingSuccess");

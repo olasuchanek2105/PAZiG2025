@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Register from './auth/Register';
@@ -94,6 +94,32 @@ function App() {
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  type Listing = {
+  listing_id: string;
+  title: string;
+  price: string;
+  image: string;
+};
+
+const [randomListings, setRandomListings] = useState<Listing[]>([]);
+useEffect(() => {
+  fetch("http://localhost:8000/api/listings/")
+    .then((res) => res.json())
+    .then((data) => {
+      if (Array.isArray(data)) {
+        const shuffled = data.sort(() => 0.5 - Math.random());
+        setRandomListings(shuffled.slice(0, 5));
+      } else {
+        console.error("Dane nie są tablicą:", data);
+        setRandomListings([]); // fallback na pustą tablicę
+      }
+    })
+    .catch((err) => {
+      console.error("Błąd pobierania ogłoszeń:", err);
+      setRandomListings([]); // fallback
+    });
+}, []);
+
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -102,6 +128,7 @@ const Home = () => {
   };
 
   return (
+
 
   <div>
     <div style={styles.heroWrapper}>
@@ -152,28 +179,36 @@ const Home = () => {
             { label: "Sprzęt pomocniczy", icon: "/hearing-aid.png" },
             { label: "Pielęgnacja", icon: "/healthcare.png" },
           ].map((item, i) => (
-            <div key={i} style={styles.popularItem}>
-              <img src={item.icon} alt={item.label} style={styles.popularIcon} />
-              <span>{item.label}</span>
-            </div>
+          <Link
+            key={i}
+            to={`/listings?category=${encodeURIComponent(item.label)}`}
+            style={{ ...styles.popularItem, textDecoration: "none", color: "inherit" }}
+          >
+            <img src={item.icon} alt={item.label} style={styles.popularIcon} />
+            <span>{item.label}</span>
+          </Link>
+
           ))}
         </div>
             {/* Popularne ogłoszenia */}
             <div style={styles.popularListingsSection}>
-              <h2 style={styles.popularListingsTitle}>🩺 Nowości / Popularne ogłoszenia</h2>
-              <div style={styles.popularListingsItems}>
-              {[
-                { title: "Wózek elektryczny – jak nowy!", price: "1 200 zł", image: "/wozekElektr.png" },
-                { title: "Pakiet rehabilitacyjny – tanio", price: "350 zł", image: "/rehab.jpeg" },
-                { title: "Chodzik składany – lekki", price: "220 zł", image: "/chodzik1.png" },
-              ].map((item: { title: string; price: string; image: string }, i) => (
+              <h2 style={styles.popularListingsTitle}>Nowości</h2>
+            <div style={styles.popularListingsItems}>
+              {randomListings.map((item, i) => (
+                <Link to={`/listings/${item.listing_id}`} style={{ textDecoration: "none", color: "inherit" }}>
                 <div key={i} style={styles.popularListingCard}>
-                  <img src={item.image} alt={item.title} style={styles.popularListingImage} />
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    style={styles.popularListingImage}
+                  />
                   <h4 style={styles.popularListingTitle}>{item.title}</h4>
-                  <p style={styles.popularListingPrice}>{item.price}</p>
+                  <p style={styles.popularListingPrice}>{item.price} zł</p>
                 </div>
+                </Link>
               ))}
-          </div>
+            </div>
+
           </div>      
       </div>
       

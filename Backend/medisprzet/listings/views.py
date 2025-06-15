@@ -15,16 +15,23 @@ class IsOwnerOrReadOnly(BasePermission):
         return obj.user == request.user
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()  # Zwraca wszystkie obiekty Listing
-    serializer_class = ListingSerializer  # Używa serializera do walidacji i zapisu
-    # def get_object(self):
-    #     return Listing.objects.get(listing_id=self.kwargs["pk"])
+    serializer_class = ListingSerializer
     lookup_field = 'listing_id'
-    def perform_create(self, serializer):
-        order = serializer.save(user=self.request.user)
 
-        listing = order.listing
-        listing.status = Listing.Status.SOLD 
-        listing.save()
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        queryset = Listing.objects.all().order_by("-created_at")
+        category = self.request.query_params.get("category")
+        if category:
+            queryset = queryset.filter(category__name__iexact=category)
+        return queryset
+
+
+        
+
+        
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 class MyListingsView(generics.ListAPIView):
@@ -38,6 +45,19 @@ class CategoryListView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Listing
+from .serializers import ListingSerializer
+import random
+
+@api_view(['GET'])
+def random_listings(request):
+    listings = list(Listing.objects.filter(status="Dostępne"))
+    random.shuffle(listings)
+    selected = listings[:5]
+    serializer = ListingSerializer(selected, many=True, context={'request': request})
+    return Response(serializer.data)
 
 
 

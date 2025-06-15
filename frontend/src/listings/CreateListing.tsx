@@ -7,7 +7,15 @@ import { useNavigate } from "react-router-dom";
 const CreateListing: React.FC = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("authToken");
-  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+  const [categories, setCategories] = useState([
+  { id: 1, name: "Sprzęt ortopedyczny i rehabilitacyjny" },
+  { id: 2, name: "Diagnostyka i pomiary" },
+  { id: 3, name: "Wyposażenie domowe" },
+  { id: 4, name: "Higiena i ochrona osobista" },
+  { id: 5, name: "Sprzęt pomocniczy" },
+  { id: 6, name: "Pielęgnacja" },
+]);
+
   
 
 
@@ -32,12 +40,6 @@ const CreateListing: React.FC = () => {
     setForm({ ...form, image: e.target.files?.[0] || null });
   };
 
-        useEffect(() => {
-        fetch("http://localhost:8000/api/listings/categories/")
-          .then((res) => res.json())
-          .then((data) => setCategories(data))
-          .catch((err) => console.error("Błąd ładowania kategorii", err));
-      }, []);
   
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,7 +51,7 @@ const CreateListing: React.FC = () => {
     // formData.append("status", form.status);
     formData.append("producent", form.producent);
     formData.append("description", form.description);
-    formData.append("category_id", form.category);
+    formData.append("category", form.category);
     formData.append("address", form.address || "");
     if (form.image) {
       formData.append("image", form.image);

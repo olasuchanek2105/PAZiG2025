@@ -11,6 +11,7 @@ urlpatterns = [
     path('', include('dj_rest_auth.urls')),  # /api/auth/login/, logout, password reset itd.
     path('/registration', include('dj_rest_auth.registration.urls')),  # /api/auth/registration/
     path('', include(router.urls)),  # np. /api/users/
+    
 ]
 
 #endpointy do uzycia:

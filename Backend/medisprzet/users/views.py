@@ -7,8 +7,8 @@ from .serializers import UserSerializer
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    def get_queryset(self):
-        return Listing.objects.filter(user=self.request.user).order_by('-created_at')
+
+
 
 # `ModelViewSet` to klasa, która **automatycznie tworzy gotowe endpointy
 
