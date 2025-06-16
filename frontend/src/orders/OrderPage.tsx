@@ -203,11 +203,13 @@ const styles: { [key: string]: React.CSSProperties } = {
   container: {
     maxWidth: "600px",
     margin: "0 auto",
+    marginTop: "50px",
     padding: "2rem",
     textAlign: "center",
     backgroundColor: "white",
-    borderRadius: "8px",
+    borderRadius: "20px",
     gap: "30px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
   },
   image: {
     width: "100%",

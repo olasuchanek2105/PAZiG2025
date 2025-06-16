@@ -100,6 +100,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "2rem",
     maxWidth: "900px",
     margin: "0 auto",
+    marginTop: "50px",
     fontFamily: "Arial, sans-serif",
   },
   title: {

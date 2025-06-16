@@ -108,20 +108,21 @@ const Register: React.FC = () => {
 // Stylizacja komponentu (prosty system stylów jako obiekt JS)
 const styles = {
   page: {
-    backgroundColor: "#1d4a94", // granatowe tło
+    backgroundColor: "#eaf8ff", // granatowe tło
     minHeight: "100vh",         // pełna wysokość ekranu
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   form: {
-    backgroundColor: "#f4f8ff", // jasne tło formularza
+    backgroundColor: "white", // jasne tło formularza
     padding: "40px",
     borderRadius: "20px",
     width: "300px",
     display: "flex",
     flexDirection: "column" as const,
     gap: "15px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
   },
   heading: {
     textAlign: "center" as const,

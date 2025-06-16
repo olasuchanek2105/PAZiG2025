@@ -75,20 +75,21 @@ const Login: React.FC = () => {
 
 const styles = {
   page: {
-    backgroundColor: "#1d4a94",
+    backgroundColor: "#eaf8ff",
     minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   form: {
-    backgroundColor: "#f4f8ff",
+    backgroundColor: "white",
     padding: "40px",
     borderRadius: "20px",
     width: "300px",
     display: "flex",
     flexDirection: "column" as const,
     gap: "15px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
   },
   heading: {
     textAlign: "center" as const,

@@ -16,7 +16,8 @@ const CreateListing: React.FC = () => {
   { id: 6, name: "Pielęgnacja" },
 ]);
 
-  
+ 
+
 
 
   const [form, setForm] = useState({
@@ -36,9 +37,19 @@ const CreateListing: React.FC = () => {
     setForm({ ...form, [name]: value });
   };
 
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, image: e.target.files?.[0] || null });
+    const file = e.target.files?.[0] || null;
+    setForm({ ...form, image: file });
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    } else {
+      setPreviewUrl(null);
+    }
   };
+
 
   
 
@@ -100,7 +111,7 @@ const CreateListing: React.FC = () => {
         </label>
 
         <label style={styles.label}>
-          Cena:
+          Cena zł:
           <input
             type="number"
             name="price"
@@ -161,6 +172,13 @@ const CreateListing: React.FC = () => {
               style={{ display: "none" }}
             />
           </div>
+                    {previewUrl && (
+            <img
+              src={previewUrl}
+              alt="Podgląd zdjęcia"
+              style={{ marginTop: "10px", maxWidth: "100%", borderRadius: "10px" }}
+            />
+          )}
         </label>
 
         <button type="submit" style={styles.button}>Dodaj ogłoszenie</button>

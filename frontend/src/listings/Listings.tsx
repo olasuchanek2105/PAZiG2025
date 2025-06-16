@@ -147,7 +147,7 @@ useEffect(() => {
       grid: {
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
-        gap: "50px 150px",
+        gap: "50px 170px",
         marginTop: "20px",
         marginLeft: "100px",
         marginRight: "100px",
