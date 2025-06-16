@@ -101,8 +101,18 @@ const CreateListing: React.FC = () => {
 
         <label style={styles.label}>
           Cena:
-          <input type="number" name="price" value={form.price} onChange={handleChange} style={styles.input} required />
+          <input
+            type="number"
+            name="price"
+            value={form.price}
+            onChange={handleChange}
+            style={styles.input}
+            required
+            min="0"
+            max="999999"
+          />
         </label>
+
 
         {/* <label style={styles.label}>
           status:
